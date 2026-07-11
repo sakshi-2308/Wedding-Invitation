@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Sakshi ♥ Kishan — Wedding Invitation</title>
+  <meta name="description" content="You are cordially invited to celebrate the wedding of Sakshi & Kishan." />
+  <meta name="theme-color" content="#5E1723" />
+
+  <!-- Open Graph (update when you add real details) -->
+  <meta property="og:title" content="Sakshi ♥ Kishan — Wedding Invitation" />
+  <meta property="og:description" content="Two souls, one beautiful journey. Join us for the celebrations." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts: Cormorant Garamond (royal serif) · Great Vibes (script names) · Jost (clean body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="is-locked">
+
+  <!-- ══════════════════════════════════════════════════════
+       AMBIENT LAYERS (petals + cursor sparkles, one canvas each)
+       ══════════════════════════════════════════════════════ -->
+  <canvas id="petalCanvas" aria-hidden="true"></canvas>
+  <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
+
+  <!-- ══════════════════════════════════════════════════════
+       MUSIC  — starts automatically when the wax seal is tapped.
+       This button lets guests pause/resume it afterwards.
+       ══════════════════════════════════════════════════════ -->
+  <audio id="bgMusic" loop preload="none" src="assets/audio/song.mp3"></audio>
+  <button id="musicToggle" class="music-toggle" aria-pressed="false" aria-label="Play background music">
+    <svg class="icon-note" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16.5" cy="15" r="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    <span class="music-waves" aria-hidden="true"><i></i><i></i><i></i></span>
+  </button>
+
+  <!-- ══════════════════════════════════════════════════════
+       OPENING — ENVELOPE WITH WAX SEAL
+       ══════════════════════════════════════════════════════ -->
+  <div id="envelopeScreen" class="envelope-screen" role="dialog" aria-label="Wedding invitation envelope">
+    <div class="envelope-vignette" aria-hidden="true"></div>
+
+    <div class="envelope-wrap">
+      <div id="envelope" class="envelope">
+        <div class="env-back"></div>
+
+        <!-- Invitation card that slides upward -->
+        <div class="env-card">
+          <div class="env-card-border">
+            <span class="env-card-ornament" aria-hidden="true">❦</span>
+            <p class="env-card-kicker">The Wedding Of</p>
+            <h2 class="env-card-names">Sakshi <span class="amp">&amp;</span> Kishan</h2>
+            <p class="env-card-date">24th November 2026</p>
+            <span class="env-card-ornament flip" aria-hidden="true">❦</span>
+          </div>
+        </div>
+
+        <div class="env-pocket"></div>
+        <div class="env-flap"></div>
+
+        <!-- Wax seal -->
+        <button id="waxSeal" class="wax-seal" aria-label="Tap to open the invitation">
+          <span class="wax-blob" aria-hidden="true">
+            <span class="wax-monogram">K·S</span>
+          </span>
+          <span class="wax-hint">Tap to Open</span>
+        </button>
+      </div>
+    </div>
+
+    <p class="envelope-caption">A celebration awaits you</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       MAIN SITE  (revealed after the envelope opens)
+       ══════════════════════════════════════════════════════ -->
+  <main id="site" class="site" hidden>
+
+    <!-- ────────────── HERO ────────────── -->
+    <header class="hero" id="hero">
+      <!--
+        VIDEO SLOT · replace the placeholder div with:
+        <video class="media-video" autoplay muted loop playsinline preload="metadata"
+               poster="assets/images/hero-poster.jpg">
+          <source src="assets/videos/hero.mp4" type="video/mp4" />
+        </video>
+      -->
+      <div class="media-frame hero-media" data-video aria-hidden="true"></div>
+
+      <div class="hero-overlay">
+        <p class="hero-shloka reveal" data-reveal lang="sa">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ । निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</p>
+        <p class="hero-kicker reveal" data-reveal>Together with their families</p>
+        <h1 class="hero-names">
+          <span class="script-name reveal" data-reveal>Sakshi Singh</span>
+          <span class="hero-heart reveal" data-reveal aria-hidden="true">♥</span>
+          <span class="script-name reveal" data-reveal>Kishan Kashyap</span>
+        </h1>
+        <div class="gold-rule reveal" data-reveal aria-hidden="true"></div>
+        <p class="hero-date reveal" data-reveal>[ 24th November 2026 ]</p>
+      </div>
+
+      <a class="scroll-indicator" href="#couple" aria-label="Scroll to explore">
+        <span class="si-text">Scroll</span>
+        <span class="si-line" aria-hidden="true"></span>
+      </a>
+    </header>
+
+    <!-- ────────────── SECTION 2 · MEET THE COUPLE ────────────── -->
+    <section class="section couple" id="couple" data-florals>
+      <div class="floral corner tl" aria-hidden="true"></div>
+      <div class="floral corner br" aria-hidden="true"></div>
+
+      <div class="section-head reveal" data-reveal>
+        <p class="eyebrow">Two Hearts</p>
+        <h2 class="section-title">Meet the Couple</h2>
+      </div>
+
+      <div class="media-frame couple-media reveal" data-reveal data-video>
+        <video class="media-video" autoplay muted loop playsinline preload="metadata">
+          <source src="assets/videos/couple-intro.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <div class="couple-names reveal" data-reveal>
+        <div class="couple-name">
+          <h3 class="script-name sm">Sakshi Singh</h3>
+          <p class="couple-sub">Daughter of Rina Singh & Lalit Prasad Singh</p>
+        </div>
+        <span class="couple-and" aria-hidden="true">&amp;</span>
+        <div class="couple-name">
+          <h3 class="script-name sm">Kishan Kashyap</h3>
+          <p class="couple-sub">Son of Nutan Kumari & Ravindra Kumar</p>
+        </div>
+      </div>
+
+      <blockquote class="couple-quote reveal" data-reveal>
+        “Two souls, one beautiful journey.”
+      </blockquote>
+    </section>
+
+    <!-- ────────────── SECTION 3 · CELEBRATIONS ────────────── -->
+    <section class="section ceremonies" id="ceremonies">
+      <div class="section-head reveal" data-reveal>
+        <p class="eyebrow">The Celebrations</p>
+        <h2 class="section-title">Wedding Celebrations</h2>
+      </div>
+
+      <!-- Ceremony 1 · Haldi & Mandapachhadan -->
+      <article class="ceremony glass reveal" data-reveal id="haldi">
+        <div class="media-frame ceremony-media">
+          <video class="media-video" autoplay muted loop playsinline preload="metadata">
+            <source src="assets/videos/haldi.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="ceremony-body">
+          <p class="eyebrow">Ceremony One · Evening</p>
+          <h3 class="ceremony-title">Haldi &amp; Mandapachhadan</h3>
+          <p class="ceremony-sub">Heart full of joy, face full of haldi</p>
+          <ul class="detail-list">
+            <li><span class="dl-k">Date</span><span class="dl-v">22 November 2026</span></li>
+            <li><span class="dl-k">Time</span><span class="dl-v">6&nbsp;PM&nbsp;Onwards</span></li>
+            <li><span class="dl-k">Venue</span><span class="dl-v">E-17 People's Cooperative Colony, Kankarbagh, Patna-800020</span></li>
+          </ul>
+          <div class="ceremony-actions">
+            <a class="btn btn-gold" href="https://maps.app.goo.gl/yr8RymV7UTyhxLP97?g_st=ic" target="_blank" rel="noopener noreferrer" data-map>Open in Maps</a>
+            <div class="qr-placeholder" role="img" aria-label="QR code to the Haldi &amp; Mandapachhadan venue on Google Maps">
+              <img src="assets/images/qr-haldi.svg" alt="" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Ceremony 2 · Ghritdhari -->
+      <article class="ceremony glass reveal alt" data-reveal id="ghritdhari">
+        <div class="media-frame ceremony-media">
+          <img class="media-img" loading="lazy" src="assets/images/ghri.jpeg" alt="Ghritdhari ceremony" />
+        </div>
+        <div class="ceremony-body">
+          <p class="eyebrow">Ceremony Two · Morning</p>
+          <h3 class="ceremony-title">Ghritdhari</h3>
+          <p class="ceremony-sub">Pure traditions, sacred beginnings</p>
+          <ul class="detail-list">
+            <li><span class="dl-k">Date</span><span class="dl-v">23 November 2026</span></li>
+            <li><span class="dl-k">Time</span><span class="dl-v">12&nbsp;PM&nbsp;Onwards</span></li>
+            <li><span class="dl-k">Venue</span><span class="dl-v">E-17 People's Cooperative Colony, Kankarbagh, Patna-800020</span></li>
+          </ul>
+          <div class="ceremony-actions">
+            <a class="btn btn-gold" href="https://maps.app.goo.gl/yr8RymV7UTyhxLP97?g_st=ic" target="_blank" rel="noopener noreferrer" data-map>Open in Maps</a>
+            <div class="qr-placeholder" role="img" aria-label="QR code to the Ghritdhari venue on Google Maps"><img src="assets/images/qr-ghritdhari.svg" alt="" loading="lazy" /></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Ceremony 3 · Sangeet (with floating musical notes) -->
+      <article class="ceremony glass reveal sangeet" data-reveal id="sangeet">
+        <div class="notes-layer" aria-hidden="true">
+          <span class="note">♪</span><span class="note">♫</span><span class="note">♩</span>
+          <span class="note">♪</span><span class="note">♬</span><span class="note">♫</span>
+        </div>
+        <div class="media-frame ceremony-media">
+          <video class="media-video" autoplay muted loop playsinline preload="metadata">
+            <source src="assets/videos/sangeet.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="ceremony-body">
+          <p class="eyebrow">Ceremony Three · Evening</p>
+          <h3 class="ceremony-title">Sangeet</h3>
+          <p class="ceremony-sub">An evening of music, dance and celebration</p>
+          <ul class="detail-list">
+            <li><span class="dl-k">Date</span><span class="dl-v">23 November 2026</span></li>
+            <li><span class="dl-k">Time</span><span class="dl-v">7&nbsp;PM&nbsp;Onwards</span></li>
+            <li><span class="dl-k">Venue</span><span class="dl-v">Hotel Ramta Continental, St. Karen's Secondary School, Balaji Nagar, Patna, Bihar-801503</span></li>
+          </ul>
+          <div class="ceremony-actions">
+            <a class="btn btn-gold" href="https://maps.app.goo.gl/tDVbx3hjvvkBxSie8?g_st=iw" target="_blank" rel="noopener noreferrer" data-map>Open in Maps</a>
+            <div class="qr-placeholder" role="img" aria-label="QR code to the Sangeet venue on Google Maps"><img src="assets/images/qr-sangeet.svg" alt="" loading="lazy" /></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ────────────── SECTION 4 · THE WEDDING DAY (SCRATCH CARD) ────────────── -->
+    <section class="section wedding-day" id="wedding">
+      <!-- VIDEO SLOT · replace with your royal palace / ceremony ambience video -->
+      <div class="wedding-bg media-frame" data-video aria-hidden="true"></div>
+      <div class="wedding-tint" aria-hidden="true"></div>
+
+      <div class="wedding-content">
+        <div class="section-head on-dark reveal" data-reveal>
+          <p class="eyebrow">The Auspicious Day</p>
+          <h2 class="section-title">The Wedding</h2>
+          <p class="wedding-lede">A secret worth uncovering…</p>
+        </div>
+
+        <div class="wedding-cards">
+          <div class="wedding-video-card media-frame reveal" data-reveal data-video>
+            <video class="media-video" autoplay muted loop playsinline preload="metadata">
+              <source src="assets/videos/wedding.mp4" type="video/mp4" />
+            </video>
+          </div>
+
+          <!-- Scratch card: canvas foil sits above the details -->
+          <div class="scratch-wrap reveal" data-reveal>
+            <div class="scratch-card" id="scratchCard">
+              <div class="scratch-under">
+                <p class="eyebrow">You are invited to</p>
+                <h3 class="scratch-venue">Kishan Palace</h3>
+                <p class="scratch-address">J372+RGX, Kaliket Nagar, Mainpura, Patna, Bihar-801503</p>
+                <div class="scratch-datetime">
+                  <span>24 November 2026</span>
+                  <i aria-hidden="true">•</i>
+                  <span>7&nbsp;PM&nbsp;Onwards</span>
+                </div>
+                <div class="ceremony-actions center">
+                  <a class="btn btn-maroon" href="https://maps.app.goo.gl/FSesayjcVDyo2Noq9?g_st=iw" target="_blank" rel="noopener noreferrer" data-map>Google Maps</a>
+                  <div class="qr-placeholder light" role="img" aria-label="QR code to the wedding venue on Google Maps"><img src="assets/images/qr-wedding.svg" alt="" loading="lazy" /></div>
+                </div>
+              </div>
+              <canvas id="scratchCanvas" aria-label="Scratch to reveal the wedding details"></canvas>
+              <p class="scratch-hint" id="scratchHint">✨ Scratch to Reveal the Wedding Details ✨</p>
+            </div>
+            <button class="btn btn-ghost reveal-all" id="revealAllBtn" hidden>Reveal everything</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ────────────── TIMELINE ────────────── -->
+    <section class="section timeline-section" id="timeline">
+      <div class="section-head reveal" data-reveal>
+        <p class="eyebrow">Moments of the Celebration</p>
+        <h2 class="section-title">Wedding Timeline</h2>
+      </div>
+
+      <ol class="timeline">
+        <li class="tl-item reveal" data-reveal>
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card glass">
+            <p class="tl-time">22 Nov 2026 · 6&nbsp;PM&nbsp;Onwards</p>
+            <h3 class="tl-title">Haldi &amp; Mandapachhadan</h3>
+            <p class="tl-desc">Blessings and turmeric to begin the journey.</p>
+          </div>
+        </li>
+        <li class="tl-item reveal" data-reveal>
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card glass">
+            <p class="tl-time">23 Nov 2026 · 12&nbsp;PM&nbsp;Onwards</p>
+            <h3 class="tl-title">Ghritdhari</h3>
+            <p class="tl-desc">Morning songs and rituals with family.</p>
+          </div>
+        </li>
+        <li class="tl-item reveal" data-reveal>
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card glass">
+            <p class="tl-time">23 Nov 2026 · 7&nbsp;PM&nbsp;Onwards</p>
+            <h3 class="tl-title">Sangeet</h3>
+            <p class="tl-desc">An evening of music and dance.</p>
+          </div>
+        </li>
+        <li class="tl-item reveal" data-reveal>
+          <span class="tl-dot" aria-hidden="true"></span>
+          <div class="tl-card glass">
+            <p class="tl-time">24 Nov 2026 · 7&nbsp;PM&nbsp;Onwards</p>
+            <h3 class="tl-title">The Wedding</h3>
+            <p class="tl-desc">Two families become one.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ────────────── COUNTDOWN ────────────── -->
+    <!-- Set the real date on data-date (ISO format) -->
+    <section class="section countdown-section" id="countdown" data-date="2026-11-24T19:00:00">
+      <div class="section-head on-dark reveal" data-reveal>
+        <p class="eyebrow">Counting Every Moment</p>
+        <h2 class="section-title">Until We Say “I Do”</h2>
+      </div>
+      <div class="countdown reveal" data-reveal id="countdownGrid">
+        <div class="cd-unit glass"><span class="cd-num" id="cdDays">—</span><span class="cd-label">Days</span></div>
+        <div class="cd-unit glass"><span class="cd-num" id="cdHours">—</span><span class="cd-label">Hours</span></div>
+        <div class="cd-unit glass"><span class="cd-num" id="cdMins">—</span><span class="cd-label">Minutes</span></div>
+        <div class="cd-unit glass"><span class="cd-num" id="cdSecs">—</span><span class="cd-label">Seconds</span></div>
+      </div>
+      <p class="cd-note reveal" data-reveal>24th November 2026 · Kishan Palace, Patna</p>
+    </section>
+
+    <!-- ────────────── GALLERY ────────────── -->
+    <section class="section gallery-section" id="gallery">
+      <div class="section-head reveal" data-reveal>
+        <p class="eyebrow">Our Story in Frames</p>
+        <h2 class="section-title">Gallery</h2>
+      </div>
+
+      <!--
+        Add media by duplicating a .g-item:
+        · Image:  <img class="media-img" loading="lazy" src="assets/images/1.jpg" alt="...">
+        · Video:  add data-type="video" and drop a <video> in — the lightbox will play it.
+      -->
+      <div class="gallery-shell reveal" data-reveal>
+        <button class="g-nav prev" id="galPrev" aria-label="Previous">&#10094;</button>
+        <div class="gallery-track" id="galleryTrack">
+          <figure class="g-item" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/21.jpeg" alt="Wedding moment 1" /></figure>
+          <figure class="g-item" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/22.jpeg" alt="Wedding moment 2" /></figure>
+          <figure class="g-item" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/23.jpeg" alt="Wedding moment 3" /></figure>
+          <figure class="g-item" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/24.jpeg" alt="Wedding moment 4" /></figure>
+          <figure class="g-item" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/25.jpeg" alt="Wedding moment 5" /></figure>
+          <figure class="g-item" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/26.jpeg" alt="Wedding moment 6" /></figure>
+          <figure class="g-item wide" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/27.jpeg" alt="Wedding moment 7" /></figure>
+          <figure class="g-item" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/28.jpeg" alt="Wedding moment 8" /></figure>
+          <figure class="g-item" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/29.jpeg" alt="Wedding moment 9" /></figure>
+          <figure class="g-item" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/30.jpeg" alt="Wedding moment 10" /></figure>
+          <figure class="g-item wide" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/31.jpeg" alt="Wedding moment 11" /></figure>
+          <figure class="g-item wide" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/32.jpeg" alt="Wedding moment 12" /></figure>
+          <figure class="g-item wide" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/33.jpeg" alt="Wedding moment 13" /></figure>
+          <figure class="g-item wide" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/34.jpeg" alt="Wedding moment 14" /></figure>
+          <figure class="g-item wide" data-type="image" tabindex="0"><img class="media-img" loading="lazy" src="assets/images/35.jpeg" alt="Wedding moment 15" /></figure>
+        </div>
+        <button class="g-nav next" id="galNext" aria-label="Next">&#10095;</button>
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Media viewer">
+      <button class="lb-close" id="lbClose" aria-label="Close viewer">✕</button>
+      <button class="lb-nav prev" id="lbPrev" aria-label="Previous">&#10094;</button>
+      <div class="lb-stage" id="lbStage"></div>
+      <button class="lb-nav next" id="lbNext" aria-label="Next">&#10095;</button>
+    </div>
+
+    <!-- ────────────── FAMILY ────────────── -->
+    <section class="section family-section" id="family">
+      <div class="section-head reveal" data-reveal>
+        <p class="eyebrow">With the Blessings Of</p>
+        <h2 class="section-title">Our Families</h2>
+      </div>
+      <div class="family-grid">
+        <article class="family-card glass reveal" data-reveal>
+          <span class="family-ornament" aria-hidden="true">❦</span>
+          <h3>Bride’s Family</h3>
+          <img class="family-photo portrait" src="assets/images/bridefam.jpeg" alt="Bride's family" loading="lazy" />
+          <p class="family-names">Lalit Prasad Singh, Rina Singh, Kumar Rohit, Sakshi Singh</p>
+          <p class="family-note" lang="hi">इस परिवार का हर कोना प्यार और आशीर्वाद से भरा है, और आज यही स्नेह इस नए रिश्ते को सींच रहा है।</p>
+        </article>
+        <article class="family-card glass reveal" data-reveal>
+          <span class="family-ornament" aria-hidden="true">❦</span>
+          <h3>Groom’s Family</h3>
+          <img class="family-photo" src="assets/images/groomfam.jpeg" alt="Groom's family" loading="lazy" />
+          <p class="family-names">Ravindra Kumar, Nutan Kumari, Rahul Goyal, Ritwika Kashyap, Kishan Kashyap</p>
+          <p class="family-note" lang="hi">परिवार के हर सदस्य की दुआएं साथ हैं, और इसी अपनेपन के साथ हम इस नए सफर का स्वागत करते हैं।</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ────────────── TRAVEL & ACCOMMODATION ────────────── -->
+    <section class="section travel-section" id="travel">
+      <div class="section-head reveal" data-reveal>
+        <p class="eyebrow">Getting Here</p>
+        <h2 class="section-title">Travel &amp; Directions</h2>
+      </div>
+      <div class="travel-grid">
+        <article class="travel-card glass reveal" data-reveal>
+          <span class="tc-icon" aria-hidden="true">🚉</span>
+          <h3>Railway Station</h3>
+          <p>Nearest Railway Station: Patliputra Junction Railway Police Station</p>
+          <a class="btn btn-ghost sm" href="https://maps.app.goo.gl/TiV8eRAZMFsv7Vvq8?g_st=aw" target="_blank" rel="noopener noreferrer" data-map>View on Maps</a>
+        </article>
+        <article class="travel-card glass reveal" data-reveal>
+          <span class="tc-icon" aria-hidden="true">✈️</span>
+          <h3>Airport</h3>
+          <p>Nearest Airport: Jay Prakash Narayan Airport</p>
+          <a class="btn btn-ghost sm" href="https://maps.app.goo.gl/xUQk4W5md1EEcXCk7?g_st=aw" target="_blank" rel="noopener noreferrer" data-map>View on Maps</a>
+        </article>
+        <article class="travel-card glass reveal" data-reveal>
+          <span class="tc-icon" aria-hidden="true">🧭</span>
+          <h3>Directions</h3>
+          <p>Kishan Palace, J372+RGX, Kaliket Nagar, Mainpura, Patna, Bihar-801503</p>
+          <a class="btn btn-ghost sm" href="https://maps.app.goo.gl/FSesayjcVDyo2Noq9?g_st=iw" target="_blank" rel="noopener noreferrer" data-map>Get Directions</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ────────────── FOOTER ────────────── -->
+    <footer class="footer">
+      <div class="footer-inner reveal" data-reveal>
+        <span class="script-name sm gold">Sakshi &amp; Kishan</span>
+        <p class="footer-note">“We cannot wait to celebrate this beautiful journey with you.”</p>
+
+        <p class="footer-contact">Lalit Prasad Singh, 9102303850 &nbsp;·&nbsp; Deventi Kumari, 8084984516</p>
+        <p class="footer-fine">Made with love · #KishanKiSakshi</p>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
