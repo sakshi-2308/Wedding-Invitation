@@ -53,6 +53,20 @@ const Music = (function musicController() {
     playing ? pause() : play();
   });
 
+  // Stop the track when the page is backgrounded/closed so it doesn't
+  // keep playing after the user has switched away or "closed" the tab.
+  let resumeOnReturn = false;
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      resumeOnReturn = btn.getAttribute("aria-pressed") === "true";
+      if (resumeOnReturn) pause();
+    } else if (resumeOnReturn) {
+      resumeOnReturn = false;
+      play();
+    }
+  });
+  window.addEventListener("pagehide", () => audio.pause());
+
   return { play, pause };
 })();
 
